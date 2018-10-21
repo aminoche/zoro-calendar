@@ -1,0 +1,22 @@
+{
+  "name": "zoroastriantime",
+  "version": "1.0.0",
+  "description": "tell you the zoroastrian time",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aminoche/zoroastrian-time.git"
+  },
+  "author": "Adil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aminoche/zoroastrian-time/issues"
+  },
+  "homepage": "https://github.com/aminoche/zoroastrian-time#readme",
+  "dependencies": {
+    "suncalc": "^1.8.0"
+  }
+}
