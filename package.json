@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/aminoche/zoroastrian-time#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "suncalc": "^1.8.0"
   }
 }
