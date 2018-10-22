@@ -16,13 +16,19 @@ const getLatLongFromAddress = async (address = '') => {
   //link to API documentation: https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.html
   try {
     const response = await axios.get(
-      'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=360%20West%20Broadway%20Salt%20Lake%20City%20Utah&benchmark=8&format=json'
+      'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress',
+      {
+        params: {
+          address: address,
+          benchmark: 8,
+          format: 'json'
+        }
+      }
     );
     const {
       x: latitude,
       y: longitude
     } = response.data.result.addressMatches[0].coordinates;
-
     return { latitude, longitude };
   } catch (error) {
     console.error(error);
