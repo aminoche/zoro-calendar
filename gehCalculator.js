@@ -6,10 +6,10 @@ Import Libraries
 const axios = require('axios');
 // suncalc will be used for deriving the sunrise and sunset for a given location
 const suncalc = require('suncalc');
-
+/*
+Setup Data*/
 // get the current date from the browser or node
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
-
 const today = new Date();
 const tomorrow = new Date(today.getTime() + ONE_DAY_IN_MS);
 
@@ -59,8 +59,7 @@ const getTimeInformation = async (address = '') => {
       currentTime: today,
       todaySunrise: todaySun.sunrise,
       todaySunset: todaySun.sunset,
-      tomorrowSunrise: tomorrowSun.sunrise,
-      tomorrowSunset: tomorrowSun.sunset
+      tomorrowSunrise: tomorrowSun.sunrise
     };
     return timeInformation;
   } catch (error) {
@@ -68,6 +67,7 @@ const getTimeInformation = async (address = '') => {
   }
 };
 
+// eslint-disable-next-line complexity
 const gehInformation = async (address = '') => {
   try {
     const time = await getTimeInformation(address);
@@ -77,7 +77,8 @@ const gehInformation = async (address = '') => {
     const isBeforeSunset = time.currentTime <= time.todaySunset;
     const isBeforeMidnight = time.currentTime.getHours() >= 0;
     const isBeforeTomorrowSunrise = time.currentTime <= time.tomorrowSunrise;
-    console.log(time);
+    console.log('current time: ', time.currentTime);
+    console.log('todaySunrise: ', time.todaySunrise);
     console.log('sunrise', isBeforeSunrise);
     console.log('noon', isBeforeNoon);
     console.log('three', isBeforeThree);
@@ -85,7 +86,9 @@ const gehInformation = async (address = '') => {
     console.log('midnight', isBeforeMidnight);
     console.log('tomorrow sunrise', isBeforeTomorrowSunrise);
     let geh;
-    if (isBeforeSunrise && isBeforeNoon) {
+    if (isBeforeMidnight && isBeforeSunrise) {
+      geh = 'Ushahin';
+    } else if (isBeforeSunrise && isBeforeNoon) {
       geh = 'Havan';
     } else if (!isBeforeNoon && isBeforeThree) {
       geh = 'Rapithwan';
@@ -93,8 +96,8 @@ const gehInformation = async (address = '') => {
       geh = 'Uziran';
     } else if (!isBeforeSunset && isBeforeMidnight) {
       geh = 'Aiwisruthrem';
-    } else if (!isBeforeMidnight && isBeforeTomorrowSunrise) {
-      geh = 'Ushahin';
+    } else {
+      throw new Error('Cannot derive the geh.');
     }
     console.log(geh);
     return geh;
@@ -103,4 +106,4 @@ const gehInformation = async (address = '') => {
   }
 };
 
-console.log(gehInformation(sampleAddress).then(val => val));
+console.log(gehInformation(sampleAddress));

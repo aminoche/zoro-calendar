@@ -1,0 +1,3 @@
+# Read for later...
+
+https://medium.com/@cpenarrieta/one-way-to-get-the-user-current-time-from-your-alexa-skill-88b6d2b1aecf
